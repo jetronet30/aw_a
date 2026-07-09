@@ -1,4 +1,12 @@
 from django.shortcuts import render
+from .models import CamSettings
 
+def camera_settings(request):
 
-# Create your views here.
+    CamSettings.create_defaults()
+
+    cameras = CamSettings.objects.all()
+
+    return render(request, "cam/camsettings.html", {
+        "cameras": cameras
+    })

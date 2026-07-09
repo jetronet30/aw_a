@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<div>
+ <h2>Camera Settings</h2>
+    <form method="post" action="/">
+        {% csrf_token %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Enabled</th>
+                    <th>Name</th>
+                    <th>IP</th>
+                    <th>RTSP Port</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>RTSP Path</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for camera in cameras %}
+
+                <tr>
+                    <td>
+                        {{ camera.camera_no }}
+                    </td>
+                    <td>
+                        <input type="checkbox" name="enabled_{{ camera.id }}" {% if camera.enabled %}checked{% endif %}>
+                    </td>
+                    <td>
+                        <input type="text" name="cam_name_{{ camera.id }}" value="{{ camera.cam_name }}">
+                    </td>
+                    <td>
+                        <input type="text" name="ip_{{ camera.id }}" value="{{ camera.ip }}">
+                    </td>
+                    <td>
+                        <input type="number" name="rtsp_port_{{ camera.id }}" value="{{ camera.rtsp_port }}">
+                    </td>
+                    <td>
+                        <input type="text" name="username_{{ camera.id }}" value="{{ camera.username }}">
+                    </td>
+                    <td>
+                        <input type="password" name="password_{{ camera.id }}" value="{{ camera.password }}">
+                    </td>
+                    <td>
+                        <input type="text" name="rtsp_path_{{ camera.id }}" value="{{ camera.rtsp_path }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+        <button type="submit">
+            Save
+        </button>
+
+    </form>
+</div>
+
+{% endblock content %}
+
+
+
