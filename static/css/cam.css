@@ -1,0 +1,49 @@
+#cam-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 25px;
+    background: none;
+    border-radius: 10px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-row label {
+    width: 180px;
+    font-weight: 600;
+}
+
+.form-control {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.checkbox-row input {
+    width: 20px;
+    height: 20px;
+}
+
+.form-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.save-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 5px;
+    background: #1976d2;
+    color: #fff;
+    cursor: pointer;
+}
+
+.save-btn:hover {
+    background: #1565c0;
+}

@@ -16,10 +16,7 @@ class CamSettings(models.Model):
 
     password = models.CharField(max_length=100, blank=True)
 
-    rtsp_path = models.CharField(
-        max_length=255,
-        default="/Streaming/Channels/101"
-    )
+    rtsp_path = models.CharField(max_length=255,default="/Streaming/Channels/101")
 
     class Meta:
         ordering = ["camera_no"]
@@ -49,3 +46,4 @@ class CamSettings(models.Model):
                 camera_no=camera["camera_no"],
                 defaults=camera
             )
+

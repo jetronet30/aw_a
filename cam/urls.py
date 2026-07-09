@@ -4,5 +4,5 @@ from . import views
 app_name = 'cam'
 
 urlpatterns = [
-    path('cam/', views.camera_settings, name='camera_settings'),
+    path('cam/<int:camera_id>', views.camera_settings, name="camera_settings"),
 ]

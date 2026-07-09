@@ -1,5 +1,11 @@
 from django.shortcuts import render
+from cam.models import CamSettings
+
 
 def index(request):
-    return render(request, 'base.html')
 
+    cameras = CamSettings.objects.all()
+
+    return render(request, "main.html", {
+        "cameras": cameras
+    })

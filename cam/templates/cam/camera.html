@@ -1,0 +1,66 @@
+{% extends "main.html" %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cam.css' %}" />
+{% endblock extra_css %} {% block content %}
+<div id="cam-container">
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-row">
+      <label for="{{ form.camera_no.id_for_label }}"
+        >{{ form.camera_no.label }}</label>
+      {{ form.camera_no }}
+    </div>
+
+    <div class="form-row checkbox-row">
+      <label for="{{ form.enabled.id_for_label }}"
+        >{{ form.enabled.label }}</label
+      >
+      {{ form.enabled }}
+    </div>
+
+    <div class="form-row">
+      <label for="{{ form.cam_name.id_for_label }}"
+        >{{ form.cam_name.label }}</label
+      >
+      {{ form.cam_name }}
+    </div>
+
+    <div class="form-row">
+      <label for="{{ form.ip.id_for_label }}">{{ form.ip.label }}</label>
+      {{ form.ip }}
+    </div>
+
+    <div class="form-row">
+      <label for="{{ form.rtsp_port.id_for_label }}"
+        >{{ form.rtsp_port.label }}</label
+      >
+      {{ form.rtsp_port }}
+    </div>
+
+    <div class="form-row">
+      <label for="{{ form.username.id_for_label }}"
+        >{{ form.username.label }}</label
+      >
+      {{ form.username }}
+    </div>
+
+    <div class="form-row">
+      <label for="{{ form.password.id_for_label }}"
+        >{{ form.password.label }}</label
+      >
+      {{ form.password }}
+    </div>
+
+    <div class="form-row">
+      <label for="{{ form.rtsp_path.id_for_label }}"
+        >{{ form.rtsp_path.label }}</label
+      >
+      {{ form.rtsp_path }}
+    </div>
+
+    <div class="form-actions">
+      <button class="save-btn" type="submit">Save</button>
+    </div>
+  </form>
+</div>
+{% endblock content %}
