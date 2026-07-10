@@ -1,49 +1,89 @@
-#cam-container {
-    max-width: 700px;
-    margin: 30px auto;
-    padding: 25px;
-    background: none;
-    border-radius: 10px;
+#processing-main-container {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#main-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  height: 95vh;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+/* ვაგონები */
+#wagons-container {
+  width: 300px;
+  height: 90vh;
+  flex-shrink: 0;
+  padding: 10px;
+}
+
+/* ინფორმაცია */
+#information-container {
+  flex: 1;
+  /* დარჩენილი სივრცე */
+  height: 85vh;
+  background: none;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#video-container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  overflow: hidden;
 }
 
 .form-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
 .form-row label {
-    width: 180px;
-    font-weight: 600;
+  width: 180px;
+  font-weight: 600;
 }
 
 .form-control {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 .checkbox-row input {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .form-actions {
-    margin-top: 20px;
-    text-align: right;
+  margin-top: 20px;
+  text-align: right;
 }
 
 .save-btn {
-    padding: 10px 24px;
-    border: none;
-    border-radius: 5px;
-    background: #1976d2;
-    color: #fff;
-    cursor: pointer;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 5px;
+  background: #1976d2;
+  color: #fff;
+  cursor: pointer;
 }
 
 .save-btn:hover {
-    background: #1565c0;
+  background: #1565c0;
 }

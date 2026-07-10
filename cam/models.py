@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class CamSettings(models.Model):
@@ -16,13 +17,26 @@ class CamSettings(models.Model):
 
     password = models.CharField(max_length=100, blank=True)
 
-    rtsp_path = models.CharField(max_length=255,default="/Streaming/Channels/101")
+    rtsp_path = models.CharField(max_length=255, default="/Streaming/Channels/101" , blank=True)
+
+    min_confidence = models.FloatField(default=0.5, validators=[
+        MinValueValidator(0.1),
+        MaxValueValidator(1.0),
+    ])
+
+    min_width= models.PositiveIntegerField(default = 300)
+
+    min_height = models.PositiveIntegerField(default = 70)
 
     class Meta:
         ordering = ["camera_no"]
 
     def __str__(self):
         return self.cam_name
+
+    @property
+    def rtsp_url(self):
+        return f"rtsp://{self.username}:{self.password}@{self.ip}:{self.rtsp_port}{self.rtsp_path}"
 
     @classmethod
     def create_defaults(cls):

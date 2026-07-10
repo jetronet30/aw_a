@@ -1,66 +1,96 @@
-{% extends "main.html" %} {% load static %} {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/cam.css' %}" />
-{% endblock extra_css %} {% block content %}
-<div id="cam-container">
-  <form method="post">
-    {% csrf_token %}
-
-    <div class="form-row">
-      <label for="{{ form.camera_no.id_for_label }}"
-        >{{ form.camera_no.label }}</label>
-      {{ form.camera_no }}
+{% extends "main.html" %}
+{% load static %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/cam.css' %}" />
+{% endblock extra_css %}
+{% block content %}
+  <div id="prosessing-main-container">
+    <div id="main-container">
+      <div id="wagons-container">
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-row">
+            <label for="{{ form.camera_no.id_for_label }}">{{ form.camera_no.label }}</label>
+            {{ form.camera_no }}
+          </div>
+          <div class="form-row checkbox-row">
+            <label for="{{ form.enabled.id_for_label }}">{{ form.enabled.label }}</label>
+            {{ form.enabled }}
+          </div>
+          <div class="form-row">
+            <label for="{{ form.cam_name.id_for_label }}">{{ form.cam_name.label }}</label>
+            {{ form.cam_name }}
+          </div>
+          <div class="form-row">
+            <label for="{{ form.ip.id_for_label }}">{{ form.ip.label }}</label>
+            {{ form.ip }}
+          </div>
+          <div class="form-row">
+            <label for="{{ form.rtsp_port.id_for_label }}">{{ form.rtsp_port.label }}</label>
+            {{ form.rtsp_port }}
+          </div>
+          <div class="form-row">
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            {{ form.username }}
+          </div>
+          <div class="form-row">
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            {{ form.password }}
+          </div>
+          <div class="form-row">
+            <label for="{{ form.rtsp_path.id_for_label }}">{{ form.rtsp_path.label }}</label>
+            {{ form.rtsp_path }}
+          </div>
+          <div class="form-row">
+            <label for="{{ form.min_confidence.id_for_label }}">{{ form.min_confidence.label }}</label>
+            {{ form.min_confidence }}
+          </div>
+          <div class="form-row">
+            <label for="{{ form.min_width.id_for_label }}">{{ form.min_width.label }}</label>
+            {{ form.min_width }}
+          </div>
+          <div class="form-row">
+            <label for="{{ form.min_height.id_for_label }}">{{ form.min_height.label }}</label>
+            {{ form.min_height }}
+          </div>
+          {% comment %} <div class="form-row">
+        <label>{{ form.rtsp_url.label }}</label>
+        {{ form.rtsp_url }}
+          </div> {% endcomment %}
+          <div class="form-actions">
+            <button class="save-btn" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+      <div id="information-container">
+        <div id="video-container">
+          <video id="video"  autoplay muted>
+          </video>
+        </div>
+      </div>
     </div>
+    <script>
+        const video = document.getElementById("video");
 
-    <div class="form-row checkbox-row">
-      <label for="{{ form.enabled.id_for_label }}"
-        >{{ form.enabled.label }}</label
-      >
-      {{ form.enabled }}
-    </div>
+        const url = "/media/hls/cam_1/stream.m3u8";
 
-    <div class="form-row">
-      <label for="{{ form.cam_name.id_for_label }}"
-        >{{ form.cam_name.label }}</label
-      >
-      {{ form.cam_name }}
-    </div>
+        if (Hls.isSupported()) {
 
-    <div class="form-row">
-      <label for="{{ form.ip.id_for_label }}">{{ form.ip.label }}</label>
-      {{ form.ip }}
-    </div>
+            const hls = new Hls({
+                lowLatencyMode: true,
+                liveSyncDurationCount: 1,
+                maxBufferLength: 1
+            });
 
-    <div class="form-row">
-      <label for="{{ form.rtsp_port.id_for_label }}"
-        >{{ form.rtsp_port.label }}</label
-      >
-      {{ form.rtsp_port }}
-    </div>
+            hls.loadSource(url);
+            hls.attachMedia(video);
 
-    <div class="form-row">
-      <label for="{{ form.username.id_for_label }}"
-        >{{ form.username.label }}</label
-      >
-      {{ form.username }}
-    </div>
 
-    <div class="form-row">
-      <label for="{{ form.password.id_for_label }}"
-        >{{ form.password.label }}</label
-      >
-      {{ form.password }}
-    </div>
+        } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
 
-    <div class="form-row">
-      <label for="{{ form.rtsp_path.id_for_label }}"
-        >{{ form.rtsp_path.label }}</label
-      >
-      {{ form.rtsp_path }}
-    </div>
+            video.src = url;
 
-    <div class="form-actions">
-      <button class="save-btn" type="submit">Save</button>
-    </div>
-  </form>
-</div>
+        }
+    </script>
+  </div>
 {% endblock content %}
