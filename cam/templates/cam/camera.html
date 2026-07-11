@@ -6,7 +6,15 @@
 {% block content %}
   <div id="prosessing-main-container">
     <div id="main-container">
-      <div id="wagons-container">
+      <div id="information-container">
+        <div id="video-container">
+          <video id="video"  autoplay muted>
+            <source src="/media/hls/{{ camera_no }}/stream.m3u8"
+                    type="application/x-mpegURL">
+          </video>
+        </div>
+      </div>
+      <div id="cam-settings">
         <form method="post">
           {% csrf_token %}
           <div class="form-row">
@@ -62,17 +70,11 @@
           </div>
         </form>
       </div>
-      <div id="information-container">
-        <div id="video-container">
-          <video id="video"  autoplay muted>
-          </video>
-        </div>
-      </div>
     </div>
     <script>
         const video = document.getElementById("video");
-
-        const url = "/media/hls/cam_1/stream.m3u8";
+        const source = video.querySelector("source");
+        const url = source.src;
 
         if (Hls.isSupported()) {
 
@@ -84,7 +86,6 @@
 
             hls.loadSource(url);
             hls.attachMedia(video);
-
 
         } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
 

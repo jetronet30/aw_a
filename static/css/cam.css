@@ -15,7 +15,7 @@
 }
 
 /* ვაგონები */
-#wagons-container {
+#cam-settings {
   width: 300px;
   height: 90vh;
   flex-shrink: 0;

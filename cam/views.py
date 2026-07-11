@@ -32,7 +32,7 @@ def camera_settings(request, camera_id):
         "cam/camera.html",
         {
             "form": form,
-            "camera": camera,
+            "camera_no": camera.camera_no,
         }
     )
 
@@ -40,4 +40,4 @@ def camera_settings(request, camera_id):
 def camera_stream(request, camera_id):
     camera = get_object_or_404(CamSettings, id=camera_id)
 
-    return redirect(f"/media/hls/cam_{camera.camera_no}/stream.m3u8")
+    return redirect(f"/media/hls/{camera.camera_no}/stream.m3u8")

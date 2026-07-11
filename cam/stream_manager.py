@@ -61,7 +61,7 @@ def output_dir(camera_no: int) -> str:
     return str(
         settings.MEDIA_ROOT /
         "hls" /
-        f"cam_{camera_no}"
+        f"{camera_no}"
     )
 
 
