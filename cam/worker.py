@@ -12,7 +12,7 @@ os.environ["TORCH_CPP_LOG_LEVEL"] = "ERROR"
 
 logger = logging.getLogger("cameras.worker")
 
-YOLO_MODEL_PATH = "yolo11n.pt"
+YOLO_MODEL_PATH = "best.pt"
 TARGET_CLASSES: list[int] | None = None   # None = detect all classes
 RECONNECT_DELAY_SEC = 5
 STREAM_FPS = 15   # stable live FPS

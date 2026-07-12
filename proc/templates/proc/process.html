@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+{% load static %}
+{% block content %}
+<div id="serial-output">ველოდები მონაცემებს...</div>
+    <script>
+        (function() {
+            const output = document.getElementById("serial-output");
+            let reconnectDelay = 1000;
+            let source;
+
+            function connect() {
+                source = new EventSource("{% url 'main:serial_stream' %}");
+                source.onopen = function() {
+                    reconnectDelay = 1000;
+                };
+                source.onmessage = function(event) {
+                    output.textContent = event.data;
+                };
+                source.onerror = function() {
+                    source.close();
+                    setTimeout(connect, reconnectDelay);
+                    reconnectDelay = Math.min(reconnectDelay * 2, 15000);
+                };
+            }
+            connect();
+        })();
+    </script>
+{% endblock content %}
