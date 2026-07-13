@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "main",
     "cam",
     "proc",
+    "scale",
 ]
 
 MIDDLEWARE = [

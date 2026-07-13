@@ -1,7 +1,14 @@
 {% extends "main.html" %}
 {% load static %}
 {% block content %}
-<div id="serial-output">ველოდები მონაცემებს...</div>
+    <div id="process-header">
+        <div id="process-header">
+            {% csrf_token %}
+            <button type="button" id="start-btn">Send Start</button>
+            <button type="button" id="abort-btn">Send Abort</button>
+        </div>
+    </div>
+    <div id="serial-output">ველოდები მონაცემებს...</div>
     <script>
         (function() {
             const output = document.getElementById("serial-output");
@@ -9,7 +16,7 @@
             let source;
 
             function connect() {
-                source = new EventSource("{% url 'main:serial_stream' %}");
+                source = new EventSource("{% url 'proc:serial_stream' %}");
                 source.onopen = function() {
                     reconnectDelay = 1000;
                 };
@@ -19,10 +26,41 @@
                 source.onerror = function() {
                     source.close();
                     setTimeout(connect, reconnectDelay);
-                    reconnectDelay = Math.min(reconnectDelay * 2, 15000);
+                    reconnectDelay = Math.min(
+                        reconnectDelay * 2,
+                        15000
+                    );
                 };
             }
             connect();
         })();
+
+        function sendCommand(command) {
+
+            fetch("{% url 'proc:process' %}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": document.querySelector(
+                            "[name=csrfmiddlewaretoken]"
+                        ).value,
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({
+                        action: command
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                });
+        }
+
+
+        document.getElementById("start-btn")
+            .onclick = () => sendCommand("start");
+
+
+        document.getElementById("abort-btn")
+            .onclick = () => sendCommand("abort");
     </script>
 {% endblock content %}

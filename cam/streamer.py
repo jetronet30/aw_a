@@ -22,7 +22,7 @@ class HLSStreamer:
 
         self.clear_output_dir()
 
-    def clear_output_dir(self):
+    def clear_output_dir(self)   :
         os.makedirs(self.output_dir, exist_ok=True)
         for item in os.listdir(self.output_dir):
             path = os.path.join(self.output_dir, item)
